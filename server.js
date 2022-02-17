@@ -14,9 +14,13 @@ const server = app.listen(3000, ()=>{
 const SocketIO = require('socket.io');
 const io = SocketIO(server);
 
+const users = {}
+
 
 io.on('connection', (socket) => {
-  console.log(`new connection ` , socket.id)
+  console.log(`El Usuario ${socket.id} Se Ha Connectado`)
+ 
+
 
   socket.on('chat:message', (data) =>{
    io.sockets.emit('chat:message', data)
@@ -24,6 +28,7 @@ io.on('connection', (socket) => {
 
   socket.on('chat:typing', (data) => {
     socket.broadcast.emit('chat:typing', data)
+    
   })
 })
 
@@ -32,8 +37,3 @@ io.on('connection', (socket) => {
 
 
 
-
-
-
-  
-  
